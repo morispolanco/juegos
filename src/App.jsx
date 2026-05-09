@@ -37,7 +37,9 @@ function App() {
               <Route path="/logic" element={<LogicGame />} />
               <Route path="/wordsearch" element={<WordSearchGame />} />
             </Routes>
-            <AdverticaAd slotId="footer-bottom" height="90px" />
+            <AdverticaAd slotId="footer-bottom-1" height="90px" />
+            <AdverticaAd slotId="footer-bottom-2" height="90px" />
+            <AdverticaAd slotId="footer-bottom-3" height="90px" />
           </div>
         </main>
 
