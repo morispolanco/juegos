@@ -1,27 +1,36 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
-const AdverticaAd = ({ slotId, width = '100%', height = '90px' }) => {
-  // Add slotId as a placement name parameter if needed, but we'll use the default URL provided
-  const adUrl = `https://data527.click/791142c1667cb4f9f0d0/c95ca09a5b/?placementName=${slotId || 'default'}`;
+const AdverticaAd = ({ slotId }) => {
+  const adRef = useRef(null);
+
+  useEffect(() => {
+    // If the script already exists in this container, don't add it again
+    if (adRef.current && adRef.current.querySelector('script')) {
+      return;
+    }
+
+    // Create the script element dynamically so React executes it
+    const script = document.createElement('script');
+    script.src = "//data527.click/js/responsive.js";
+    script.async = true;
+
+    if (adRef.current) {
+      adRef.current.appendChild(script);
+    }
+  }, []);
 
   return (
-    <div className="w-full flex justify-center my-6">
-      <div 
-        className="bg-parchment-200 border border-parchment-400 p-2 shadow-inner relative overflow-hidden flex items-center justify-center"
-        style={{ width, height, minHeight: '90px' }}
-      >
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/aged-paper.png')] opacity-50 mix-blend-multiply pointer-events-none"></div>
-        
-        <iframe 
-          src={adUrl}
-          width="100%" 
-          height="100%" 
-          frameBorder="0" 
-          scrolling="no" 
-          className="relative z-10"
-          title={`Advertica Ad ${slotId}`}
-          allowFullScreen={false}
-        ></iframe>
+    <div className="w-full flex justify-center my-6 overflow-hidden">
+      {/* We wrap it in a div to maintain the script injection reference */}
+      <div ref={adRef} className="flex justify-center items-center relative z-10 w-full max-w-full overflow-x-auto overflow-y-hidden">
+        <ins 
+          style={{ width: '970px', height: '250px', display: 'block' }} 
+          data-width="970" 
+          data-height="250" 
+          className="xcb5c2634f8" 
+          data-domain="//data527.click" 
+          data-affquery={`/0fc8c9c0e1f7ffaacf3d/cb5c2634f8/?placementName=${slotId || 'default'}`}
+        ></ins>
       </div>
     </div>
   );
